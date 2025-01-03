@@ -1,41 +1,112 @@
 import React, { useState } from "react";
-import CalendarComponent from "../components/Calendar";
-import "../styles/BookingPage.css";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import "../styles/BookingPage.css";
 import { addBooking } from "../redux/slices/bookingsSlice";
 
 const BookingPage = () => {
   const dispatch = useDispatch();
-  const [selectedDate, setSelectedDate] = useState(null);
+  const navigate = useNavigate();
+  const { state } = useLocation(); // Access the hospital data from state
+  const hospital = state?.hospital; // Ensure hospital data is available
+
+  // Declare hooks unconditionally
+  const [selectedDate, setSelectedDate] = useState("Today");
   const [selectedTime, setSelectedTime] = useState("");
-  const times = ["10:00 AM", "11:00 AM", "12:00 PM", "2:00 PM", "3:00 PM", "4:00 PM"];
+  const times = {
+    Morning: ["10:00 AM", "11:00 AM"],
+    Afternoon: ["12:00 PM", "1:00 PM", "2:00 PM"],
+    Evening: ["6:00 PM", "7:00 PM", "8:00 PM"],
+  };
+
+  if (!hospital) {
+    return (
+      <div className="booking-page">
+        <h2>Hospital information is missing.</h2>
+        <p>Please return to the search page and select a hospital.</p>
+      </div>
+    );
+  }
+
+  const convertDate = (date) => {
+    const today = new Date();
+    if (date === "Today") {
+      return today.toISOString();
+    } else if (date === "Tomorrow") {
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      return tomorrow.toISOString();
+    } else {
+      return new Date(date).toISOString();
+    }
+  };
 
   const handleBooking = () => {
-    if (selectedDate && selectedTime) {
-      dispatch(addBooking({ date: selectedDate, time: selectedTime }));
+    if (!selectedDate || !selectedTime) {
+      alert("Please select both a date and time.");
+      return;
+    }
+
+    try {
+      const bookingData = {
+        hospital: {
+          name: hospital["Hospital Name"],
+          phone: hospital["Phone Number"],
+          address: `${hospital.Address}, ${hospital.City}, ${hospital.State}, ${hospital["ZIP Code"]}`,
+        },
+        date: convertDate(selectedDate),
+        time: selectedTime,
+      };
+
+      dispatch(addBooking(bookingData));
       alert("Booking confirmed!");
-    } else {
-      alert("Please select a date and time.");
+      navigate("/my-bookings");
+    } catch (error) {
+      console.error("Error creating booking:", error);
+      alert("An error occurred while booking. Please try again.");
     }
   };
 
   return (
     <div className="booking-page">
-      <h2>Book an Appointment</h2>
-      <CalendarComponent onDateChange={setSelectedDate} />
-      <div className="time-selection">
-        <h3>Select a Time:</h3>
-        {times.map((time, index) => (
+      <div className="hospital-details">
+        <h2>Book an Appointment at {hospital["Hospital Name"]}</h2>
+        <p>
+          Address: {hospital.Address}, {hospital.City}, {hospital.State}{" "}
+          {hospital["ZIP Code"]}
+        </p>
+        <p>Phone: {hospital["Phone Number"]}</p>
+      </div>
+      <div className="date-tabs">
+        {["Today", "Tomorrow", "Fri, 5 May"].map((date, index) => (
           <button
             key={index}
-            onClick={() => setSelectedTime(time)}
-            className={selectedTime === time ? "selected" : ""}
+            className={selectedDate === date ? "active-tab" : ""}
+            onClick={() => setSelectedDate(date)}
           >
-            {time}
+            {date}
           </button>
         ))}
       </div>
-      <button onClick={handleBooking} className="confirm-btn">
+      <div className="time-selection">
+        {Object.keys(times).map((timeGroup) => (
+          <div key={timeGroup} className="time-group">
+            <h3>{timeGroup}</h3>
+            <div className="time-slots">
+              {times[timeGroup].map((time) => (
+                <button
+                  key={time}
+                  className={selectedTime === time ? "selected-time" : ""}
+                  onClick={() => setSelectedTime(time)}
+                >
+                  {time}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="confirm-btn" onClick={handleBooking}>
         Confirm Booking
       </button>
     </div>

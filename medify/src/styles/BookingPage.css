@@ -1,28 +1,95 @@
 .booking-page {
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
-  .time-selection {
-    margin: 20px 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .time-selection button {
-    border: 2px solid #007bff;
-    background-color: #fff;
-    color: #007bff;
-    transition: all 0.3s;
-  }
-  
-  .time-selection button.selected {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .confirm-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-  }
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5faff;
+  min-height: 100vh;
+}
+
+.hospital-details {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.hospital-details h2 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 5px;
+}
+
+.hospital-details p {
+  font-size: 16px;
+  color: #333;
+}
+
+.date-tabs {
+  display: flex;
+  gap: 15px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.date-tabs button {
+  padding: 10px 15px;
+  border: none;
+  background: #f5faff;
+  color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.date-tabs .active-tab {
+  background: #007bff;
+  color: #fff;
+}
+
+.time-group {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.time-group h3 {
+  font-size: 18px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.time-slots {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.time-slots button {
+  padding: 10px 15px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background: #fff;
+  color: #007bff;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.time-slots .selected-time {
+  background: #007bff;
+  color: #fff;
+}
+
+.confirm-btn {
+  margin-top: 30px;
+  padding: 15px 20px;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.confirm-btn:hover {
+  background: #0056b3;
+}

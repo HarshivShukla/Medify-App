@@ -6,15 +6,47 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-container">
+        {/* Logo linking to Landing Page */}
         <Link to="/" className="navbar-logo">
-          Medify
+          <span>Medify</span>
         </Link>
+
+        {/* Navigation Menu */}
         <ul className="navbar-menu">
           <li>
-            <Link to="/search-results">Find Hospitals</Link>
+            <Link to="/find-doctors" className="navbar-link">
+              Find Doctors
+            </Link>
           </li>
           <li>
-            <Link to="/my-bookings">My Bookings</Link>
+            <Link to="/find-hospitals" className="navbar-link">
+              Find Hospitals
+            </Link>
+          </li>
+          <li>
+            <Link to="/medicines" className="navbar-link">
+              Medicines
+            </Link>
+          </li>
+          <li>
+            <Link to="/surgeries" className="navbar-link">
+              Surgeries
+            </Link>
+          </li>
+          <li>
+            <Link to="/provider-software" className="navbar-link">
+              Software for Providers
+            </Link>
+          </li>
+          <li>
+            <Link to="/facilities" className="navbar-link">
+              Facilities
+            </Link>
+          </li>
+          <li>
+            <Link to="/my-bookings" className="navbar-link navbar-my-bookings">
+              My Bookings
+            </Link>
           </li>
         </ul>
       </div>

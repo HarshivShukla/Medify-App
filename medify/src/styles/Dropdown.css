@@ -1,0 +1,43 @@
+/* Container styling */
+.dropdown-container {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    margin: 0 10px;
+  }
+  
+  /* Label for dropdown */
+  .dropdown-label {
+    display: flex;
+    align-items: center;
+    background-color: #f5faff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Search icon */
+  .dropdown-icon {
+    font-size: 16px;
+    color: #a0a0a0;
+    margin-right: 10px;
+  }
+  
+  /* Dropdown select box */
+  .custom-dropdown {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #333;
+    outline: none;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  /* Placeholder option styling */
+  .custom-dropdown option:disabled {
+    color: #a0a0a0;
+  }
+  
