@@ -1,0 +1,19 @@
+.my-bookings {
+    padding: 20px;
+    background-color: #f5f5f5;
+  }
+  
+  .bookings-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .booking-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
